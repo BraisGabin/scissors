@@ -46,17 +46,11 @@ class CropViewExtensions {
     }
 
     final static boolean HAS_PICASSO = canHasClass("com.squareup.picasso.Picasso");
-    final static boolean HAS_GLIDE = canHasClass("com.bumptech.glide.Glide");
-    final static boolean HAS_UIL = canHasClass("com.nostra13.universalimageloader.core.ImageLoader");
 
     static BitmapLoader resolveBitmapLoader(CropView cropView, LoaderType loaderType) {
         switch (loaderType) {
             case PICASSO:
                 return PicassoBitmapLoader.createUsing(cropView);
-            case GLIDE:
-                return GlideBitmapLoader.createUsing(cropView);
-            case UIL:
-                return UILBitmapLoader.createUsing(cropView);
             case CLASS_LOOKUP:
                 break;
             default:
@@ -65,12 +59,6 @@ class CropViewExtensions {
 
         if (HAS_PICASSO) {
             return PicassoBitmapLoader.createUsing(cropView);
-        }
-        if (HAS_GLIDE) {
-            return GlideBitmapLoader.createUsing(cropView);
-        }
-        if (HAS_UIL) {
-            return UILBitmapLoader.createUsing(cropView);
         }
         throw new IllegalStateException("You must provide a BitmapLoader.");
     }
